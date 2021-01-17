@@ -2,13 +2,10 @@
   <div class="container column">
     <form class="card card-w30">
       <div class="form-control">
-        <label for="type">Тип блока</label>
-        <select id="type" v-model="typeBlock">
-          <option selected value="title">Заголовок</option>
-          <option value="subtitle">Подзаголовок</option>
-          <option value="avatar">Аватар</option>
-          <option value="text">Текст</option>
-        </select>
+        <app-type-block
+          :typeBlock="typeBlock"
+          @blockType="typeBlockValue"
+        ></app-type-block>
       </div>
 
       <div class="form-control">
@@ -63,6 +60,7 @@ import AppBlockSubtitle from "@/AppBlockSubtitle";
 import AppBlockText from "@/AppBlockText";
 import AppButton from "@/AppButton";
 import AppComments from "@/AppComments";
+import AppTypeBlock from "@/AppTypeBlock";
 import axios from 'axios'
 
 export default {
@@ -89,6 +87,10 @@ export default {
     }
   },
   methods: {
+    typeBlockValue(valueBlock) {
+      this.typeBlock = valueBlock
+      console.log(valueBlock)
+    },
     addBlock() {
       const dateBlock = {
         name: this.componentName,
@@ -151,19 +153,7 @@ export default {
       }
     }
   },
-  components: { AppLoader, AppBlockTitle, AppBlockAvatar, AppBlockSubtitle, AppBlockText, AppButton, AppComments }
+  components: { AppLoader, AppBlockTitle, AppBlockAvatar, AppBlockSubtitle, AppBlockText, AppButton, AppComments, AppTypeBlock }
 }
 </script>
 
-<style>
-  .avatar {
-    display: flex;
-    justify-content: center;
-  }
-
-  .avatar img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-  }
-</style>
